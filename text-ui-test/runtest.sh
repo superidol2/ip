@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# check if using Java 21
+version=$(java -version 2>&1 | head -n 1 | cut -d'"' -f2 | cut -d'.' -f1)
+if [ "$version" != "21" ]; then
+    echo "********** ERROR: Please use Java 21 **********"
+    exit 1
+fi
+
 # create bin directory if it doesn't exist
 if [ ! -d "../bin" ]
 then

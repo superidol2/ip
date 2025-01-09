@@ -1,5 +1,17 @@
 @ECHO OFF
 
+REM check if using Java 21
+for /f "tokens=3" %%g in ('java -version 2^>^&1 ^| findstr /i "version"') do (
+    set JAVAVER=%%g
+)
+set JAVAVER=%JAVAVER:"=%
+for /f "delims=. tokens=1" %%v in ("%JAVAVER%") do (
+    if NOT "%%v"=="21" (
+        echo ********** ERROR: Please use Java 21 **********
+        exit /b 1
+    )
+)
+
 REM create bin directory if it doesn't exist
 if not exist ..\bin mkdir ..\bin
 
