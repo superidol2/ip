@@ -4,7 +4,7 @@ This is a project template for a greenfield Java project. It's named after the J
 
 ## Setting up in IntelliJ
 
-Prerequisites: JDK 21, update IntelliJ to the most recent version.
+Prerequisites: JDK 21.
 
 1. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
 1. Open the project into IntelliJ as follows:
