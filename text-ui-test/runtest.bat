@@ -1,13 +1,19 @@
 @ECHO OFF
 
+REM Print Java version for debugging
+echo Checking Java version...
+java -version
+
 REM check if using Java 21
 for /f "tokens=3" %%g in ('java -version 2^>^&1 ^| findstr /i "version"') do (
+    echo Detected Java version: %%g
     set JAVAVER=%%g
 )
 set JAVAVER=%JAVAVER:"=%
 for /f "delims=. tokens=1" %%v in ("%JAVAVER%") do (
+    echo Parsed major version: %%v
     if NOT "%%v"=="21" (
-        echo ********** ERROR: Please use Java 21 **********
+        echo ********** ERROR: Please use Java 21 (current version: %%v) **********
         exit /b 1
     )
 )

@@ -24,3 +24,21 @@ Prerequisites: JDK 21, update IntelliJ to the most recent version.
    ```
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+
+## Running Tests
+
+The project comes with a set of test scripts for different operating systems:
+
+- **MacOS/Linux**: Run the shell script
+  ```bash
+  cd text-ui-test
+  ./runtest.sh
+  ```
+
+- **Windows**: Run the batch script
+  ```batch
+  cd text-ui-test
+  runtest.bat
+  ```
+
+These scripts will compile the source files, run the tests, and compare the output against the expected output.

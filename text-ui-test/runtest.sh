@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 
+# Print Java version for debugging
+echo "Checking Java version..."
+java -version
+
 # check if using Java 21
-version=$(java -version 2>&1 | head -n 1 | cut -d'"' -f2 | cut -d'.' -f1)
+java_ver=$(java -version 2>&1 | grep -i version | head -n 1)
+echo "Detected Java version: $java_ver"
+
+version=$(echo $java_ver | sed -n 's/.*version "\([0-9]*\).*/\1/p')
+echo "Parsed major version: $version"
+
 if [ "$version" != "21" ]; then
-    echo "********** ERROR: Please use Java 21 **********"
+    echo "********** ERROR: Please use Java 21 (current version: $version) **********"
     exit 1
 fi
 
