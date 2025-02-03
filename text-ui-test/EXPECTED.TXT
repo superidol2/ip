@@ -1,3 +1,20 @@
 Hello! I'm Awebo
 What can I do for you?
 
+Got it. I've added this task:
+  [T][ ] code
+Now you have 1 tasks in the list.
+Got it. I've added this task:
+  [D][ ] homework (by: 10pm)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+  [E][ ] dance (from: 2pm to: 4pm)
+Now you have 3 tasks in the list.
+AWEsome! Marked as done: [X] code
+AWEsome! Marked as done: [X] homework
+Marked as undone: [ ] homework
+Here are the tasks in your list:
+1. [T][X] code
+2. [D][ ] homework (by: 10pm)
+3. [E][ ] dance (from: 2pm to: 4pm)
+Goodbye! aWebO
