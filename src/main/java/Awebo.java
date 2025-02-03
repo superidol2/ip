@@ -153,6 +153,16 @@ public class Awebo {
                 System.out.println("Got it. I've added this task:\n  " + newTask);
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
             }
+            else if(userinput.startsWith("delete ") || userinput.startsWith("remove ")) {
+                int index = Integer.parseInt(userinput.substring(7)) - 1;
+                if (index >= 0 && index < list.size()) {
+                    System.out.println("Noted. I've removed this task: " + list.get(index).getStatus());
+                    list.remove(index);
+                    System.out.println("Now you have " + list.size()+ " tasks in the list.");
+                } else {
+                    System.out.println("Invalid task number, unable to remove task!");
+                }
+            }
             else{
                 System.out.println("Unknown command. Try 'todo'/'deadline'/'event'.");
             }
