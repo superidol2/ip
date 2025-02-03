@@ -1,6 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-class Task {
+abstract class Task {
     String description;
     boolean isDone;
     public Task(String description) {
@@ -15,6 +15,54 @@ class Task {
     }
     public String getStatus() {
         return (isDone ? "[X] " : "[ ] ") + description;
+    }
+    public abstract String getType();
+    @Override
+    public String toString() {
+        return "[" + getType() + "]" + getStatus();
+    }
+}
+
+class ToDo extends Task {
+    public ToDo(String description) {
+        super(description);
+    }
+    @Override
+    public String getType() {
+        return "T"; //"T" for todo
+    }
+}
+
+class Deadline extends Task {
+    String by;
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+    @Override
+    public String getType() {
+        return "D"; //"D" for deadline
+    }
+    @Override
+    public String toString() {
+        return "[" + getType() + "]" + getStatus() + " (by: " + by + ")";
+    }
+}
+
+class Event extends Task {
+    String from, to;
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+    @Override
+    public String getType() {
+        return "E"; // "E" for Event
+    }
+    @Override
+    public String toString() {
+        return "[" + getType() + "]" + getStatus() + " (from: " + from + " to: " + to + ")";
     }
 }
 
@@ -32,7 +80,7 @@ public class Awebo {
             else if (userinput.equalsIgnoreCase("list")) {
                 System.out.println("Here are the tasks in your list: ");
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println((i + 1) + ". " + list.get(i).getStatus());
+                    System.out.println((i + 1) + ". " + list.get(i).toString());
                 }
             }
             else if (userinput.startsWith("mark ")) {
@@ -46,17 +94,52 @@ public class Awebo {
             }
             else if (userinput.startsWith("unmark ")) {
                 int index = Integer.parseInt(userinput.substring(7)) - 1;
-                if (index >= 0 && index < list.size()) {//check if keyed index within range
+                if (index >= 0 && index < list.size()) {
                     list.get(index).markUndone();
                     System.out.println("Marked as undone: " + list.get(index).getStatus());
                 } else {
                     System.out.println("Invalid task number.");
                 }
             }
-            else{
-                list.add(new Task(userinput));
-                System.out.println("added: " + userinput);
+            else if (userinput.startsWith("todo ")) {
+                String taskDesc = userinput.substring(5).trim();
+                Task newTask = new ToDo(taskDesc);
+                list.add(newTask);
+                System.out.println("Got it. I've added this task:\n  " + newTask);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+            }
+            else if (userinput.startsWith("deadline ")) {
+                int splitIndex = userinput.indexOf(" /by ");
+                if (splitIndex != -1) {
+                    String taskDesc = userinput.substring(9, splitIndex).trim();
+                    String by = userinput.substring(splitIndex + 5).trim();
+                    Task newTask = new Deadline(taskDesc, by);
+                    list.add(newTask);
+                    System.out.println("Got it. I've added this task:\n  " + newTask);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                } else {
+                    System.out.println("Invalid format. Use: deadline <task> /by <date>");
+                }
+            }
+            else if (userinput.startsWith("event ")) {
+                int fromIndex = userinput.indexOf(" /from ");
+                int toIndex = userinput.indexOf(" /to ");
+                if (fromIndex != -1 && toIndex != -1) {
+                    String taskDesc = userinput.substring(6, fromIndex).trim();
+                    String from = userinput.substring(fromIndex + 7, toIndex).trim();
+                    String to = userinput.substring(toIndex + 4).trim();
+                    Task newTask = new Event(taskDesc, from, to);
+                    list.add(newTask);
+                    System.out.println("Got it. I've added this task:\n  " + newTask);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                } else {
+                    System.out.println("Invalid format. Use: event <task> /from <start> /to <end>");
+                }
+            }
+            else {
+                System.out.println("Unknown command. Try 'todo'/'deadline'/'event'.");
             }
         }
     }
 }
+
