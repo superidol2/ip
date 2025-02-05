@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.*;
 abstract class Task {
     String description;
     boolean isDone;
@@ -67,7 +68,18 @@ class Event extends Task {
 }
 
 public class Awebo {
+    public static void writeListToFile(ArrayList<?> list, String filename) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (Object item : list) {
+                writer.write(item.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
+        String filePath = "saved_tasks/output.txt"; // saved tasklist in relative path
         ArrayList<Task> list = new ArrayList<>(); // resizable
         Scanner scanner = new Scanner(System.in); //get user input
         System.out.println("Hello! I'm Awebo\nWhat can I do for you?\n");
@@ -86,6 +98,7 @@ public class Awebo {
                 if (index >= 0 && index < list.size()) {
                     list.get(index).markDone();
                     System.out.println("AWEsome! Marked as done: " + list.get(index).getStatus());
+                    writeListToFile(list, filePath);
                 } else {
                     System.out.println("Invalid task number.");
                 }
@@ -94,6 +107,7 @@ public class Awebo {
                 if (index >= 0 && index < list.size()) {
                     list.get(index).markUndone();
                     System.out.println("Marked as undone: " + list.get(index).getStatus());
+                    writeListToFile(list, filePath);
                 } else {
                     System.out.println("Invalid task number.");
                 }
@@ -106,6 +120,7 @@ public class Awebo {
                     list.add(newTask);
                     System.out.println("Got it. I've added this task:\n  " + newTask);
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    writeListToFile(list, filePath);
                 }
             } else if (userinput.startsWith("deadline ")) {
                 int splitIndex = userinput.indexOf(" /by ");
@@ -131,6 +146,7 @@ public class Awebo {
                         list.add(newTask);
                         System.out.println("Got it. I've added this task:\n  " + newTask);
                         System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        writeListToFile(list, filePath);
                     }
                 }
             }
@@ -152,6 +168,7 @@ public class Awebo {
                 list.add(newTask);
                 System.out.println("Got it. I've added this task:\n  " + newTask);
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
+                writeListToFile(list, filePath);
             }
             else if(userinput.startsWith("delete ") || userinput.startsWith("remove ")) {
                 int index = Integer.parseInt(userinput.substring(7)) - 1;
@@ -159,6 +176,7 @@ public class Awebo {
                     System.out.println("Noted. I've removed this task: " + list.get(index).getStatus());
                     list.remove(index);
                     System.out.println("Now you have " + list.size()+ " tasks in the list.");
+                    writeListToFile(list, filePath);
                 } else {
                     System.out.println("Invalid task number, unable to remove task!");
                 }
