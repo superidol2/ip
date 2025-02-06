@@ -1,6 +1,44 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.ParseException;
+
+abstract class DateFormatter {
+    public static String formatDate(String inputDate) {
+        try {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("d/M/yyyy HHmm"); //input format: day/month/year time
+            Date date = inputFormat.parse(inputDate);
+
+            SimpleDateFormat dayFormat = new SimpleDateFormat("d");
+            int day = Integer.parseInt(dayFormat.format(date)); //extract day to determine suffix
+            String daySuffix = getDaySuffix(day);
+
+            SimpleDateFormat outputFormat = new SimpleDateFormat("d' of 'MMMM yyyy, ha");
+            String formattedDate = outputFormat.format(date);
+
+            return formattedDate.replaceFirst("\\d+", day + daySuffix); //include suffix for the day
+        } catch (ParseException e) {
+            return "Error: Invalid date format. Please enter in d/M/yyyy HHmm format.";
+        }
+    }
+    private static String getDaySuffix(int day) {
+        if (day >= 11 && day <= 13) {
+            return "th"; //special case for 11th, 12th, 13th
+        } else {
+            switch (day % 10) {
+                case 1: return "st";
+                case 2: return "nd";
+                case 3: return "rd";
+                default: return "th";
+            }
+        }
+    }
+}
 abstract class Task {
     String description;
     boolean isDone;
@@ -136,13 +174,16 @@ public class Awebo {
                     if (splitIndex + 5 < userinput.length()) {
                         by = userinput.substring(splitIndex + 5).trim(); //extract date after "/by"
                     }
+                    String formattedDate = DateFormatter.formatDate(by);
                     //validate input
                     if (taskDesc.isEmpty()) {
                         System.out.println("Invalid deadline. Please provide a task description before /by.");
                     } else if (by.isEmpty()) {
                         System.out.println("Invalid deadline. Please provide a valid deadline after /by.");
+                    } else if (formattedDate.startsWith("Error:")) {
+                        System.out.println(formattedDate); //print error message
                     } else {
-                        Task newTask = new Deadline(taskDesc, by);
+                        Task newTask = new Deadline(taskDesc, formattedDate);
                         list.add(newTask);
                         System.out.println("Got it. I've added this task:\n  " + newTask);
                         System.out.println("Now you have " + list.size() + " tasks in the list.");
@@ -159,16 +200,26 @@ public class Awebo {
                 }
                 String taskDesc = userinput.substring(6, fromIndex).trim();
                 String from = userinput.substring(fromIndex + 7, toIndex).trim();
+                String fromFormatted =DateFormatter.formatDate(from);
                 String to = userinput.substring(toIndex + 4).trim();
+                String toFormatted =DateFormatter.formatDate(to);
                 if (taskDesc.isEmpty() || from.isEmpty() || to.isEmpty()) { //ensure all parts not empty
                     System.out.println("Invalid event. Please provide task, start, and end times.");
                     continue;
                 }
-                Task newTask = new Event(taskDesc, from, to);
-                list.add(newTask);
-                System.out.println("Got it. I've added this task:\n  " + newTask);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
-                writeListToFile(list, filePath);
+                else if (fromFormatted.startsWith("Error:")) {  //check formatting
+                    System.out.println(fromFormatted); //print error message
+                }
+                else if(toFormatted.startsWith("Error:")){
+                    System.out.println(toFormatted);
+                }
+                else{
+                    Task newTask = new Event(taskDesc, fromFormatted, toFormatted);
+                    list.add(newTask);
+                    System.out.println("Got it. I've added this task:\n  " + newTask);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    writeListToFile(list, filePath);
+                }
             }
             else if(userinput.startsWith("delete ") || userinput.startsWith("remove ")) {
                 int index = Integer.parseInt(userinput.substring(7)) - 1;
