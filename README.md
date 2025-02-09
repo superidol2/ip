@@ -1,4 +1,4 @@
-# Awebo project template
+# awebo.awebo project template
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
@@ -13,7 +13,7 @@ Prerequisites: JDK 21.
    1. If there are any further prompts, accept the defaults.
 1. Configure the project to use **JDK 21** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Awebo.java` file, right-click it, and choose `Run Awebo.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+1. After that, locate the `src/awebo/java/awebo.awebo.java` file, right-click it, and choose `Run awebo.awebo.awebo()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
    Hello from
     ____        _        
@@ -23,7 +23,7 @@ Prerequisites: JDK 21.
    |____/ \__,_|_|\_\___|
    ```
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+**Warning:** Keep the `src\awebo\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
 
 ## Running Tests
 

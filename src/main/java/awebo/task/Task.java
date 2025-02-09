@@ -1,4 +1,6 @@
-abstract class Task {
+package awebo.task;
+
+public class Task {
     String description;
     boolean isDone;
 
@@ -19,7 +21,9 @@ abstract class Task {
         return (isDone ? "[X] " : "[ ] ") + description;
     }
 
-    public abstract String getType();
+    public String getType() {
+        return "";
+    }
 
     @Override
     public String toString() {

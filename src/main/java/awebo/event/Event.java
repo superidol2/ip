@@ -1,4 +1,8 @@
-class Event extends Task {
+package awebo.event;
+
+import awebo.task.Task;
+
+public class Event extends Task {
     String from, to;
 
     public Event(String description, String from, String to) {
@@ -9,7 +13,7 @@ class Event extends Task {
 
     @Override
     public String getType() {
-        return "E"; // "E" for Event
+        return "E"; // "E" for Awebo.Event.Awebo.Event
     }
 
     @Override

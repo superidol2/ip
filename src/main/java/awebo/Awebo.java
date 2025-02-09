@@ -1,3 +1,10 @@
+package awebo;
+
+import awebo.parser.Parser;
+import awebo.task.Task;
+import awebo.ui.Ui;
+
+
 import java.util.Scanner;
 import java.util.ArrayList;
 

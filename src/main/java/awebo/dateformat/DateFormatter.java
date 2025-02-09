@@ -1,8 +1,10 @@
+package awebo.dateformat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-abstract class DateFormatter {
+public abstract class DateFormatter {
     public static String formatDate(String inputDate) {
         try {
             SimpleDateFormat inputFormat = new SimpleDateFormat("d/M/yyyy HHmm"); //input format: day/month/year time
