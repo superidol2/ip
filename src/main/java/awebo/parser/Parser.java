@@ -1,14 +1,14 @@
 package awebo.parser;
 
+import java.util.ArrayList;
+
+import awebo.dateformat.DateFormatter;
+import awebo.deadline.Deadline;
+import awebo.event.Event;
+import awebo.storage.Storage;
 import awebo.task.Task;
 import awebo.todo.ToDo;
 import awebo.ui.Ui;
-import awebo.storage.Storage;
-import awebo.deadline.Deadline;
-import awebo.dateformat.DateFormatter;
-import awebo.event.Event;
-import java.util.ArrayList;
-
 
 public class Parser {
     private ArrayList<Task> list;
