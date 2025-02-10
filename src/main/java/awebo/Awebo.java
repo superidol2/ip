@@ -1,12 +1,11 @@
 package awebo;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import awebo.parser.Parser;
 import awebo.task.Task;
 import awebo.ui.Ui;
-
-
-import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Awebo {
     public static void main(String[] args) {
@@ -24,4 +23,3 @@ public class Awebo {
         }
     }
 }
-
