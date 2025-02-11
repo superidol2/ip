@@ -43,4 +43,3 @@ public class Deadline extends Task {
         return "[" + getType() + "]" + getStatus() + " (by: " + by + ")";
     }
 }
-
