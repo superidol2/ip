@@ -1,24 +1,43 @@
 package awebo.parser;
 
+import java.util.ArrayList;
+
+import awebo.dateformat.DateFormatter;
+import awebo.deadline.Deadline;
+import awebo.event.Event;
+import awebo.storage.Storage;
 import awebo.task.Task;
 import awebo.todo.ToDo;
 import awebo.ui.Ui;
-import awebo.storage.Storage;
-import awebo.deadline.Deadline;
-import awebo.dateformat.DateFormatter;
-import awebo.event.Event;
-import java.util.ArrayList;
 
-
+/**
+ * The {@code Parser} class is responsible for processing user commands
+ * and executing the corresponding actions on a task list.
+ */
 public class Parser {
+    /** The list of tasks managed by the parser. */
     private ArrayList<Task> list;
+
+    /** The file path where task data is stored. */
     private String filePath;
 
+    /**
+     * Constructs a {@code Parser} with a task list and a file path.
+     *
+     * @param list The list of tasks.
+     * @param filePath The file path for storing task data.
+     */
     public Parser(ArrayList<Task> list, String filePath) {
         this.list = list;
         this.filePath = filePath;
     }
 
+    /**
+     * Processes a user command and performs the corresponding action.
+     *
+     * @param command The user input command.
+     * @param ui The user interface to display messages.
+     */
     public void processCommand(String command, Ui ui) {
         if (command.equalsIgnoreCase("bye")) {
             ui.showMessage("Goodbye! aWebO");
