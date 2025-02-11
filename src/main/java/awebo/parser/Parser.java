@@ -7,7 +7,9 @@ import awebo.storage.Storage;
 import awebo.deadline.Deadline;
 import awebo.dateformat.DateFormatter;
 import awebo.event.Event;
+
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class Parser {
@@ -37,6 +39,8 @@ public class Parser {
             addEvent(command, ui);
         } else if (command.startsWith("delete ") || command.startsWith("remove ")) {
             deleteTask(command, ui);
+        } else if (command.startsWith("cheer")) {
+            cheerTask(command, ui);
         } else {
             ui.showMessage("Unknown command. Try 'todo', 'deadline', or 'event'.");
         }
@@ -150,4 +154,14 @@ public class Parser {
             ui.showMessage("Invalid task number, unable to remove task!");
         }
     }
+
+    private void cheerTask(String command, Ui ui) {
+        ArrayList<String> cheer = new ArrayList<>();
+        cheer.add("Hip Hip Hooray engineers!");
+        cheer.add("Let's go, you can do it fellow engineers!");
+        cheer.add("You got this, hang on engineers!");
+        Random rand = new Random();
+        ui.showMessage(cheer.get(rand.nextInt(cheer.size())));
+    }
 }
+
