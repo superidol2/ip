@@ -1,6 +1,7 @@
 package awebo.parser;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import awebo.dateformat.DateFormatter;
 import awebo.deadline.Deadline;
@@ -9,6 +10,7 @@ import awebo.storage.Storage;
 import awebo.task.Task;
 import awebo.todo.ToDo;
 import awebo.ui.Ui;
+
 
 /**
  * The {@code Parser} class is responsible for processing user commands
@@ -58,8 +60,9 @@ public class Parser {
             deleteTask(command, ui);
         } else if (command.startsWith("find ")) {
             findTask(command, ui);
-        }
-        else {
+        } else if (command.startsWith("cheer")) {
+            cheerTask(command, ui);
+        } else {
             ui.showMessage("Unknown command. Try 'todo', 'deadline', or 'event'.");
         }
     }
@@ -172,7 +175,7 @@ public class Parser {
             ui.showMessage("Invalid task number, unable to remove task!");
         }
     }
-    private void findTask(String command, Ui ui){
+    private void findTask(String command, Ui ui) {
         try {
             if (command.length() < 4) {
                 throw new IllegalArgumentException("Search term too short.");
@@ -193,13 +196,19 @@ public class Parser {
             if (num == 0) {
                 ui.showMessage("No task found.");
             }
-        }
-        catch (StringIndexOutOfBoundsException e) {
+        } catch (StringIndexOutOfBoundsException e) {
             ui.showMessage("Invalid search: search term too short.");
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             ui.showMessage("Error: Task list contains null entries.");
         }
     }
-}
 
+    private void cheerTask(String command, Ui ui) {
+        ArrayList<String> cheer = new ArrayList<>();
+        cheer.add("Hip Hip Hooray engineers!");
+        cheer.add("Let's go, you can do it fellow engineers!");
+        cheer.add("You got this, hang on engineers!");
+        Random rand = new Random();
+        ui.showMessage(cheer.get(rand.nextInt(cheer.size())));
+    }
+}
