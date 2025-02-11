@@ -37,7 +37,10 @@ public class Parser {
             addEvent(command, ui);
         } else if (command.startsWith("delete ") || command.startsWith("remove ")) {
             deleteTask(command, ui);
-        } else {
+        } else if (command.startsWith("find ")) {
+            findTask(command, ui);
+        }
+        else {
             ui.showMessage("Unknown command. Try 'todo', 'deadline', or 'event'.");
         }
     }
@@ -150,4 +153,34 @@ public class Parser {
             ui.showMessage("Invalid task number, unable to remove task!");
         }
     }
+    private void findTask(String command, Ui ui){
+        try {
+            if (command.length() < 4) {
+                throw new IllegalArgumentException("Search term too short.");
+            }
+
+            String find = command.substring(4);
+            int num = 0;
+            ui.showMessage("Here are the tasks in your list from your search: " + find);
+
+            for (int i = 0; i < list.size(); i++) {
+                String task = list.get(i).toString();
+                if (task != null && task.contains(find)) { // Check for null values
+                    ui.showMessage((i + 1) + ". " + task);
+                    num++;
+                }
+            }
+
+            if (num == 0) {
+                ui.showMessage("No task found.");
+            }
+        }
+        catch (StringIndexOutOfBoundsException e) {
+            ui.showMessage("Invalid search: search term too short.");
+        }
+        catch (NullPointerException e) {
+            ui.showMessage("Error: Task list contains null entries.");
+        }
+    }
 }
+
