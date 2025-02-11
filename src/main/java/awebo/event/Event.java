@@ -8,7 +8,6 @@ import awebo.task.Task;
  * The class provides methods to retrieve the event type and a string representation of the event.
  */
 public class Event extends Task {
-    private String to;
     /** The start time of the event. */
     private String from;
 
