@@ -1,15 +1,18 @@
 package awebo.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import awebo.deadline.Deadline;
+import awebo.event.Event;
 import awebo.task.Task;
 import awebo.todo.ToDo;
 import awebo.ui.Ui;
-import awebo.deadline.Deadline;
-import awebo.event.Event;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
     private ArrayList<Task> taskList;
@@ -34,7 +37,8 @@ class ParserTest {
         parser.processCommand("todo Read book", mockUi);
         assertEquals(1, taskList.size());
         assertTrue(taskList.get(0) instanceof ToDo);
-        assertEquals("Got it. I've added this task:\n[T][ ] Read book\nNow you have 1 tasks in the list.", mockUi.getLastMessage());
+        assertEquals("Got it. I've added this task:\n[T][ ] Read book\nNow you have 1 tasks in the list.",
+                mockUi.getLastMessage());
     }
 
     @Test
