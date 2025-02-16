@@ -72,10 +72,14 @@ public class Parser {
             ui.showMessage("Your task list is empty.");
             return;
         }
-        ui.showMessage("Here are the tasks in your list:");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < list.size(); i++) {
-            ui.showMessage((i + 1) + ". " + list.get(i));
+            sb.append(i + 1).append(". ").append(list.get(i)).append("\n");
         }
+
+        ui.showMessage(sb.toString());
     }
 
     private void markTask(String command, Ui ui) {
