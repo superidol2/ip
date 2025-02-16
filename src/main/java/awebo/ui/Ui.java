@@ -8,6 +8,9 @@ import java.util.Scanner;
  */
 public class Ui {
 
+    // Add a field to store the last message shown to the user
+    private String lastMessage;
+
     /**
      * Displays a welcome message to the user.
      * This method is typically called when the application starts.
@@ -32,7 +35,21 @@ public class Ui {
      * @param message The message to be displayed to the user.
      */
     public void showMessage(String message) {
+        // Store the last message
+        lastMessage = message;
+
+        // Display the message
         System.out.println(message);
     }
-}
 
+    /**
+     * Gets the last message displayed to the user.
+     *
+     * @return The last message shown to the user.
+     */
+    public String getLastMessage() {
+
+        // Return the last message displayed
+        return lastMessage;
+    }
+}
