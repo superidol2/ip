@@ -11,7 +11,6 @@ import awebo.task.Task;
 import awebo.todo.ToDo;
 import awebo.ui.Ui;
 
-
 /**
  * The {@code Parser} class is responsible for processing user commands
  * and executing the corresponding actions on a task list.
@@ -46,7 +45,10 @@ public class Parser {
             System.exit(0);
         } else if (command.equalsIgnoreCase("list")) {
             showTaskList(ui);
-        } else if (command.startsWith("mark ")) {
+        } else if (command.equalsIgnoreCase("?")) {
+            showHelp(ui);
+        }
+        else if (command.startsWith("mark ")) {
             markTask(command, ui);
         } else if (command.startsWith("unmark ")) {
             unmarkTask(command, ui);
@@ -65,6 +67,26 @@ public class Parser {
         } else {
             ui.showMessage("Unknown command. Try 'todo', 'deadline', or 'event'.");
         }
+    }
+
+    private void showHelp(Ui ui) {
+        String helpMessage = "Here are the available commands:\n"
+                + "ToDos: tasks without any date/time attached to it.\n"
+                + "    - Input: todo <task>\n\n"
+                + "Deadlines: tasks that need to be done before a specific date/time.\n"
+                + "    - Input: deadline <task> /by <d/M/yyyy>\n\n"
+                + "Events: tasks that start and end at a specific date/time.\n"
+                + "    - Input: event <task> /from <d/M/yyyy> <HHmm> /to <d/M/yyyy> <HHmm>\n\n"
+                + "Mark: mark tasks as done.\n"
+                + "    - Input: mark <task number>\n\n"
+                + "Unmark: unmark tasks.\n"
+                + "    - Input: unmark <task number>\n\n"
+                + "Remove: remove tasks.\n"
+                + "    - Input: remove <task number>\n\n"
+                + "Exit: exit application\n"
+                + "    - Input: bye";
+
+        ui.showMessage(helpMessage);
     }
 
     private void showTaskList(Ui ui) {
