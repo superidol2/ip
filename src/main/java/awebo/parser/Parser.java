@@ -145,20 +145,31 @@ public class Parser {
         int fromIndex = command.indexOf(" /from ");
         int toIndex = command.indexOf(" /to ");
         if (fromIndex == -1 || toIndex == -1 || fromIndex > toIndex) {
-            ui.showMessage("Invalid format. Use: event <task> /from <start> /to <end>");
+            ui.showMessage("Invalid format. Input: 'event <task> /from <d/M/yyyy> <HHmm> /to <d/M/yyyy> <HHmm>'");
             return;
         }
         String taskDesc = command.substring(6, fromIndex).trim();
         String from = command.substring(fromIndex + 7, toIndex).trim();
         String to = command.substring(toIndex + 4).trim();
-        if (taskDesc.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            ui.showMessage("Invalid event. Provide task, start, and end times.");
+        if (taskDesc.isEmpty()) {
+            ui.showMessage("Invalid event. Task description cannot be empty.\nFormat: event <task> /from <d/M/yyyy> <HHmm> /to <d/M/yyyy> <HHmm>");
             return;
         }
+
+        if (from.isEmpty()) {
+            ui.showMessage("Invalid event. Start date and time must be provided.\nFormat: event <task> /from <d/M/yyyy> <HHmm> /to <d/M/yyyy> <HHmm>");
+            return;
+        }
+
+        if (to.isEmpty()) {
+            ui.showMessage("Invalid event. End date and time must be provided.\nFormat: event <task> /from <d/M/yyyy> <HHmm> /to <d/M/yyyy> <HHmm>");
+            return;
+        }
+
         String fromFormatted = DateFormatter.formatDate(from);
         String toFormatted = DateFormatter.formatDate(to);
         if (fromFormatted.startsWith("Error:") || toFormatted.startsWith("Error:")) {
-            ui.showMessage("Invalid date format.");
+            ui.showMessage("Invalid Event. Format: event <task> /from <d/M/yyyy> <HHmm> /to <d/M/yyyy> <HHmm>");
             return;
         }
         Task newTask = new Event(taskDesc, fromFormatted, toFormatted);
