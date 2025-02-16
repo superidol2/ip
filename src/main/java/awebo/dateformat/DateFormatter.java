@@ -35,10 +35,15 @@ public abstract class DateFormatter {
             int day = Integer.parseInt(dayFormat.format(date)); // Extract day to determine suffix
             String daySuffix = getDaySuffix(day);
 
-            SimpleDateFormat outputFormat = new SimpleDateFormat("d' of 'MMMM yyyy, ha");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("d' of 'MMMM yyyy, h a");
             String formattedDate = outputFormat.format(date);
 
-            return formattedDate.replaceFirst("\\d+", day + daySuffix); // Include suffix for the day
+            // Separate AM/PM from the rest of the string to avoid uppercasing suffixes
+            int lastSpaceIndex = formattedDate.lastIndexOf(" ");
+            String mainPart = formattedDate.substring(0, lastSpaceIndex);
+            String amPmPart = formattedDate.substring(lastSpaceIndex + 1).toUpperCase();
+
+            return mainPart.replaceFirst("\\d+", day + daySuffix) + amPmPart;
         } catch (ParseException e) {
             return "Error: Invalid date format. Please enter in d/M/yyyy HHmm format.";
         }
