@@ -11,7 +11,6 @@ import awebo.task.Task;
 import awebo.todo.ToDo;
 import awebo.ui.Ui;
 
-
 /**
  * The {@code Parser} class is responsible for processing user commands
  * and executing the corresponding actions on a task list.
@@ -46,7 +45,10 @@ public class Parser {
             System.exit(0);
         } else if (command.equalsIgnoreCase("list")) {
             showTaskList(ui);
-        } else if (command.startsWith("mark ")) {
+        } else if (command.equalsIgnoreCase("?")) {
+            showHelp(ui);
+        }
+        else if (command.startsWith("mark ")) {
             markTask(command, ui);
         } else if (command.startsWith("unmark ")) {
             unmarkTask(command, ui);
@@ -65,6 +67,26 @@ public class Parser {
         } else {
             ui.showMessage("Unknown command. Try 'todo', 'deadline', or 'event'.");
         }
+    }
+
+    private void showHelp(Ui ui) {
+        String helpMessage = "Here are the available commands:\n"
+                + "ToDos: tasks without any date/time attached to it.\n"
+                + "    - Input: todo <task>\n\n"
+                + "Deadlines: tasks that need to be done before a specific date/time.\n"
+                + "    - Input: deadline <task> /by <d/M/yyyy>\n\n"
+                + "Events: tasks that start and end at a specific date/time.\n"
+                + "    - Input: event <task> /from <d/M/yyyy> <HHmm> /to <d/M/yyyy> <HHmm>\n\n"
+                + "Mark: mark tasks as done.\n"
+                + "    - Input: mark <task number>\n\n"
+                + "Unmark: unmark tasks.\n"
+                + "    - Input: unmark <task number>\n\n"
+                + "Remove: remove tasks.\n"
+                + "    - Input: remove <task number>\n\n"
+                + "Exit: exit application\n"
+                + "    - Input: bye";
+
+        ui.showMessage(helpMessage);
     }
 
     private void showTaskList(Ui ui) {
@@ -145,20 +167,31 @@ public class Parser {
         int fromIndex = command.indexOf(" /from ");
         int toIndex = command.indexOf(" /to ");
         if (fromIndex == -1 || toIndex == -1 || fromIndex > toIndex) {
-            ui.showMessage("Invalid format. Use: event <task> /from <start> /to <end>");
+            ui.showMessage("Invalid format. Input: 'event <task> /from <d/M/yyyy> <HHmm> /to <d/M/yyyy> <HHmm>'");
             return;
         }
         String taskDesc = command.substring(6, fromIndex).trim();
         String from = command.substring(fromIndex + 7, toIndex).trim();
         String to = command.substring(toIndex + 4).trim();
-        if (taskDesc.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            ui.showMessage("Invalid event. Provide task, start, and end times.");
+        if (taskDesc.isEmpty()) {
+            ui.showMessage("Invalid event. Task description cannot be empty.\nFormat: event <task> /from <d/M/yyyy> <HHmm> /to <d/M/yyyy> <HHmm>");
             return;
         }
+
+        if (from.isEmpty()) {
+            ui.showMessage("Invalid event. Start date and time must be provided.\nFormat: event <task> /from <d/M/yyyy> <HHmm> /to <d/M/yyyy> <HHmm>");
+            return;
+        }
+
+        if (to.isEmpty()) {
+            ui.showMessage("Invalid event. End date and time must be provided.\nFormat: event <task> /from <d/M/yyyy> <HHmm> /to <d/M/yyyy> <HHmm>");
+            return;
+        }
+
         String fromFormatted = DateFormatter.formatDate(from);
         String toFormatted = DateFormatter.formatDate(to);
         if (fromFormatted.startsWith("Error:") || toFormatted.startsWith("Error:")) {
-            ui.showMessage("Invalid date format.");
+            ui.showMessage("Invalid Event. Format: event <task> /from <d/M/yyyy> <HHmm> /to <d/M/yyyy> <HHmm>");
             return;
         }
         Task newTask = new Event(taskDesc, fromFormatted, toFormatted);

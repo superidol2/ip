@@ -47,6 +47,8 @@ public class MainWindow extends AnchorPane {
         String filePath = "saved_tasks/output.txt";
         parser = new Parser(taskList, filePath);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String welcomeMessage = "Hello! I'm Awebo, your task management chatbot. How can I assist you today? Type ? for help";
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, aweboImage));
     }
 
     public void setUi(Ui uiInstance) {
