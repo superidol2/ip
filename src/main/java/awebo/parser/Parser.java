@@ -40,6 +40,7 @@ public class Parser {
      * @param ui The user interface to display messages.
      */
     public void processCommand(String command, Ui ui) {
+        assert !command.isEmpty() : "Command should not be empty";
         if (command.equalsIgnoreCase("bye")) {
             ui.showMessage("Goodbye! aWebO");
             System.exit(0);
@@ -107,27 +108,38 @@ public class Parser {
     private void markTask(String command, Ui ui) {
         try {
             int index = Integer.parseInt(command.substring(5)) - 1;
+            assert index >= 0 && index < list.size() : "Task index out of bounds"; // Ensure that the index is within the valid range
             list.get(index).markDone();
             ui.showMessage("AWEsome! Marked as done: " + list.get(index).getStatus());
             Storage.writeListToFile(list, filePath);
+        } catch (NumberFormatException e) {
+            ui.showMessage("Invalid task number format. Please enter a valid number.");
+        } catch (IndexOutOfBoundsException e) {
+            ui.showMessage("Invalid task number. Task does not exist.");
         } catch (Exception e) {
-            ui.showMessage("Invalid task number.");
+            ui.showMessage("An unexpected error occurred.");
         }
     }
 
     private void unmarkTask(String command, Ui ui) {
         try {
             int index = Integer.parseInt(command.substring(7)) - 1;
+            assert index >= 0 && index < list.size() : "Task index out of bounds";
             list.get(index).markUndone();
             ui.showMessage("Marked as undone: " + list.get(index).getStatus());
             Storage.writeListToFile(list, filePath);
+        } catch (NumberFormatException e) {
+            ui.showMessage("Invalid task number format. Please enter a valid number.");
+        } catch (IndexOutOfBoundsException e) {
+            ui.showMessage("Invalid task number. Task does not exist.");
         } catch (Exception e) {
-            ui.showMessage("Invalid task number.");
+            ui.showMessage("An unexpected error occurred.");
         }
     }
 
     private void addTodo(String command, Ui ui) {
         String taskDesc = command.substring(5).trim();
+        assert !taskDesc.isEmpty() : "Task description should not be empty";
         if (taskDesc.isEmpty()) {
             ui.showMessage("Empty task, please fill in your task.");
             return;
