@@ -138,6 +138,7 @@ public class Parser {
     }
 
     private void addTodo(String command, Ui ui) {
+
         String taskDesc = command.substring(5).trim();
         assert !taskDesc.isEmpty() : "Task description should not be empty";
         if (taskDesc.isEmpty()) {
@@ -145,6 +146,10 @@ public class Parser {
             return;
         }
         Task newTask = new ToDo(taskDesc);
+        if (isDuplicate(newTask.toString())) {
+            ui.showMessage("Warning: This task is a duplicate and cannot be added until removed.");
+            return; // Abort addition if a duplicate is found
+        }
         list.add(newTask);
         ui.showMessage("Got it. I've added this task:\n  " + newTask);
         ui.showMessage("Now you have " + list.size() + " tasks in the list.");
@@ -169,6 +174,10 @@ public class Parser {
             return;
         }
         Task newTask = new Deadline(taskDesc, formattedDate);
+        if (isDuplicate(newTask.toString())) {
+            ui.showMessage("Warning: This task is a duplicate and cannot be added until removed.");
+            return; // Abort addition if a duplicate is found
+        }
         list.add(newTask);
         ui.showMessage("Got it. I've added this task:\n  " + newTask);
         ui.showMessage("Now you have " + list.size() + " tasks in the list.");
@@ -207,6 +216,10 @@ public class Parser {
             return;
         }
         Task newTask = new Event(taskDesc, fromFormatted, toFormatted);
+        if (isDuplicate(newTask.toString())) {
+            ui.showMessage("Warning: This task is a duplicate and cannot be added until removed.");
+            return; // Abort addition if a duplicate is found
+        }
         list.add(newTask);
         ui.showMessage("Got it. I've added this task:\n  " + newTask);
         ui.showMessage("Now you have " + list.size() + " tasks in the list.");
@@ -259,5 +272,13 @@ public class Parser {
         cheer.add("You got this, hang on engineers!");
         Random rand = new Random();
         ui.showMessage(cheer.get(rand.nextInt(cheer.size())));
+    }
+    private boolean isDuplicate(String task) {
+        for (Task existingTask : list) {
+            if (existingTask.toString().equalsIgnoreCase(task)) {
+                return true; // Duplicate found
+            }
+        }
+        return false; // No duplicates
     }
 }
