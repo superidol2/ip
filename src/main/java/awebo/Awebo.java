@@ -14,10 +14,11 @@ import javafx.stage.Stage;
  */
 public class Awebo extends Application {
 
+    private static final String FILE_PATH = "saved_tasks/output.txt";
+
     @Override
     public void start(Stage primaryStage) {
-        // This will be your JavaFX initialization code
-        String filePath = "saved_tasks/output.txt";
+        String filePath = FILE_PATH;
         ArrayList<Task> list = new ArrayList<>();
         Ui ui = new Ui();
         Parser parser = new Parser(list, filePath);

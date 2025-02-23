@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Awebo using FXML.
  */
 public class Main extends Application {
 
@@ -22,7 +22,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            // inject the awebo instance
+
+            // Inject the awebo instance
             fxmlLoader.<MainWindow>getController().setAwebo(awebo);
             stage.show();
         } catch (IOException e) {
