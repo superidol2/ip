@@ -151,8 +151,8 @@ public class Parser {
             return; // Abort addition if a duplicate is found
         }
         list.add(newTask);
-        ui.showMessage("Got it. I've added this task:\n  " + newTask);
-        ui.showMessage("Now you have " + list.size() + " tasks in the list.");
+        ui.showMessage("Got it. I've added this task:\n  " + newTask
+                + "\nNow you have " + list.size() + " tasks in the list.");
         Storage.writeListToFile(list, filePath);
     }
 
@@ -179,8 +179,8 @@ public class Parser {
             return; // Abort addition if a duplicate is found
         }
         list.add(newTask);
-        ui.showMessage("Got it. I've added this task:\n  " + newTask);
-        ui.showMessage("Now you have " + list.size() + " tasks in the list.");
+        ui.showMessage("Got it. I've added this task:\n  " + newTask
+                + "\nNow you have " + list.size() + " tasks in the list.");
         Storage.writeListToFile(list, filePath);
     }
 
@@ -221,8 +221,8 @@ public class Parser {
             return; // Abort addition if a duplicate is found
         }
         list.add(newTask);
-        ui.showMessage("Got it. I've added this task:\n  " + newTask);
-        ui.showMessage("Now you have " + list.size() + " tasks in the list.");
+        ui.showMessage("Got it. I've added this task:\n  " + newTask
+                + "\nNow you have " + list.size() + " tasks in the list.");
         Storage.writeListToFile(list, filePath);
     }
 
@@ -243,7 +243,7 @@ public class Parser {
                 throw new IllegalArgumentException("Search term too short.");
             }
 
-            String find = command.substring(4);
+            String find = command.substring(4).trim();
             int num = 0;
             ui.showMessage("Here are the tasks in your list from your search: " + find);
 
