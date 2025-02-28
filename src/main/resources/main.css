@@ -1,0 +1,24 @@
+.button:hover {
+    -fx-background-color: #fffaf0;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #c0c0c0;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #f8f8f;
+    -fx-background-radius: 1em;
+}
