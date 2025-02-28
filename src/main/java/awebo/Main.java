@@ -23,6 +23,9 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             // inject the awebo instance
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
+            stage.setMaxWidth(417); // No resize
             fxmlLoader.<MainWindow>getController().setAwebo(awebo);
             stage.show();
         } catch (IOException e) {

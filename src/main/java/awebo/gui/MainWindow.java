@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
         parser = new Parser(taskList, filePath);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String welcomeMessage = "Hello! I'm Awebo, your task management chatbot. How can I assist you today? Type ? for help";
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, aweboImage));
+        dialogContainer.getChildren().add(DialogBox.getAweboDialog(welcomeMessage, aweboImage));
     }
 
     public void setUi(Ui uiInstance) {
@@ -80,7 +80,7 @@ public class MainWindow extends AnchorPane {
         // Add both user's input and awebo's response to the dialog container
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, aweboImage)
+                DialogBox.getAweboDialog(response, aweboImage)
         );
 
         // Clear the input field after processing

@@ -2,17 +2,17 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" stylesheets="@../dialog-box.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" minHeight="-Infinity" text="Label" textFill="#544225" wrapText="true" />
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" opacity="1" pickOnBounds="true" preserveRatio="true">
-         <effect>
-            <BoxBlur height="0.0" />
-         </effect></ImageView>
+        <Label fx:id="dialog" blendMode="DARKEN" cache="true" cacheHint="QUALITY" minHeight="-Infinity" mouseTransparent="true" text="Label" textFill="#322714" wrapText="true">
+         <font>
+            <Font name="Apple Color Emoji" size="13.0" />
+         </font></Label>
+        <ImageView fx:id="displayPicture" fitHeight="70.0" fitWidth="70.0" opacity="1" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
