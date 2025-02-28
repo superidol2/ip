@@ -58,6 +58,7 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
+        setAweboAlignment();
         dialog.getStyleClass().add("reply-label");
     }
 
