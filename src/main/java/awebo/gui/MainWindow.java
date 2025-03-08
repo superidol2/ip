@@ -1,9 +1,10 @@
 package awebo.gui;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import awebo.Awebo;
 import awebo.parser.Parser;
+import awebo.storage.Storage;
 import awebo.task.Task;
 import awebo.ui.Ui;
 import javafx.fxml.FXML;
@@ -32,7 +33,8 @@ public class MainWindow extends AnchorPane {
     private Awebo awebo;
     private Ui ui;
     private Parser parser;
-    private ArrayList<Task> taskList;
+    private Storage storage;
+    private List<Task> taskList;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/seal.jpeg"));
     private Image aweboImage = new Image(this.getClass().getResourceAsStream("/images/awebo.jpeg"));
 
@@ -42,18 +44,17 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        taskList = new ArrayList<>();
+        String filePath = "saved_tasks.txt";
+        this.storage = new Storage(filePath);
+        taskList = storage.loadTasks();
         ui = new Ui();
-        String filePath = "saved_tasks/output.txt";
-        parser = new Parser(taskList, filePath);
+        parser = new Parser(taskList);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String welcomeMessage = "Hello! I'm Awebo, your task management chatbot. How can I assist you today? Type ? for help";
+        String welcomeMessage = "Hello! I'm Awebo, your task management chatbot. "
+                + "How can I assist you today? Type ? for help";
         dialogContainer.getChildren().add(DialogBox.getAweboDialog(welcomeMessage, aweboImage));
     }
 
-    public void setUi(Ui uiInstance) {
-        this.ui = uiInstance;
-    }
 
     /**
      * Handle the user input, add tasks, and provide feedback to the user.
@@ -73,6 +74,8 @@ public class MainWindow extends AnchorPane {
 
         // Process the command
         parser.processCommand(input, ui);
+
+        storage.saveTasks(this.taskList);
 
         // Get the last message that ui showed
         String response = ui.getLastMessage();
