@@ -20,7 +20,7 @@ Awebo Chat is an intuitive communication and task management tool designed to st
 
 # Getting Started
 1. Ensure Java 21 is installed on your computer
-2. Download Awebo.jar from here
+2. Download Awebo.jar from [here](https://github.com/superidol2/ip/releases/tag/A-Release)
 3. Launch the application by running the following command:  `java -jar Awebo.jar`
 
 # Creating a ToDo Task
@@ -62,3 +62,5 @@ Awebo can detect duplicates if the task to be added has exactly the same content
 # Support & Assistance
 To get help for the commands available to be used, type `?` to get help
 
+# Cheer 
+To get a randomly generated cheer, type `cheer`
