@@ -23,7 +23,7 @@ class ParserTest {
     @BeforeEach
     void setUp() {
         taskList = new ArrayList<>();
-        parser = new Parser(taskList, "test.txt");
+        parser = new Parser(taskList);
         mockUi = new MockUi();
     }
 
